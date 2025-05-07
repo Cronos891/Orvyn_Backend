@@ -82,12 +82,24 @@ import dj_database_url
 # Configure database using DATABASE_URL or fall back to default configuration
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:postgres@localhost:5432/orvyn_db',
+        default='postgresql://orvyn_db_user:0IZR87lpf7vs4JYsbDggZ9JXjqjx22JI@dpg-d0danebuibrs73f51n7g-a.oregon-postgres.render.com/orvyn_db',
         conn_max_age=600,
         conn_health_checks=True,
-        ssl_require=True
+        # Only require SSL in production
+        ssl_require='RENDER' in os.environ
     )
 }
+
+# Add database options for better connection handling
+db_options = DATABASES['default'].get('OPTIONS', {})
+db_options.update({
+    'connect_timeout': 10,
+    'keepalives': 1,
+    'keepalives_idle': 30,
+    'keepalives_interval': 10,
+    'keepalives_count': 5,
+})
+DATABASES['default']['OPTIONS'] = db_options
 
 
 # Password validation
