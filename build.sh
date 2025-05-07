@@ -11,11 +11,11 @@ cd backend
 # Create static directory if it doesn't exist
 mkdir -p static
 
-# Initialize database schema
-python manage.py makemigrations
-
-# Apply migrations and create superuser
+# Initialize database schema and apply migrations
 python manage.py migrate
+python manage.py makemigrations
 python manage.py migrate --run-syncdb
+
+# Collect static files and create superuser
 python manage.py collectstatic --no-input
 python manage.py createadmin
