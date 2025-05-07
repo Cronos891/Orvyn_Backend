@@ -83,10 +83,10 @@ import dj_database_url
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DATABASE_NAME', 'Orvyn'),
-        'USER': os.environ.get('DATABASE_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'Cronos18847489'),
-        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
+        'NAME': os.environ.get('DATABASE_NAME', 'orvyn_db'),
+        'USER': os.environ.get('DATABASE_USER', 'orvyn_db_user'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', '0IZR87lpf7vs4JYsbDggZ9JXjqjx22JI'),
+        'HOST': os.environ.get('DATABASE_HOST', 'dpg-d0danebuibrs73f51n7g-a'),
         'PORT': os.environ.get('DATABASE_PORT', '5432'),
     }
 }
