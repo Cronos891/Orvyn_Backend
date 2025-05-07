@@ -14,3 +14,6 @@ mkdir -p static
 # Collect static files and run migrations
 python manage.py collectstatic --no-input
 python manage.py migrate
+
+# Create a Procfile in the correct location
+echo "web: gunicorn backend.wsgi:application" > Procfile

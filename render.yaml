@@ -3,7 +3,7 @@ services:
     name: orvyn-backend
     env: python
     buildCommand: ./build.sh
-    startCommand: cd backend && gunicorn backend.wsgi:application
+    startCommand: cd backend && gunicorn backend.wsgi
     envVars:
       - key: DATABASE_URL
         sync: false
