@@ -79,21 +79,15 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 import os
 import dj_database_url
 
-# Default database configuration
+# Configure database using DATABASE_URL or fall back to default configuration
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DATABASE_NAME', 'orvyn_db'),
-        'USER': os.environ.get('DATABASE_USER', 'orvyn_db_user'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD', '0IZR87lpf7vs4JYsbDggZ9JXjqjx22JI'),
-        'HOST': os.environ.get('DATABASE_HOST', 'dpg-d0danebuibrs73f51n7g-a'),
-        'PORT': os.environ.get('DATABASE_PORT', '5432'),
-    }
+    'default': dj_database_url.config(
+        default='postgresql://postgres:postgres@localhost:5432/orvyn_db',
+        conn_max_age=600,
+        conn_health_checks=True,
+        ssl_require=True
+    )
 }
-
-# Override database configuration with DATABASE_URL if available (for Render deployment)
-if 'DATABASE_URL' in os.environ:
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
 # Password validation
