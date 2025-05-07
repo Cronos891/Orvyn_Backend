@@ -82,11 +82,10 @@ import dj_database_url
 # Configure database using DATABASE_URL or fall back to default configuration
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://orvyn_db_user:0IZR87lpf7vs4JYsbDggZ9JXjqjx22JI@dpg-d0danebuibrs73f51n7g-a.oregon-postgres.render.com/orvyn_db',
+        default='postgresql://orvyn_db_jc7n_user:stxnYOVLYziUEK5S0Pb8k1RllwR8dlJC@dpg-d0dsbjmuk2gs73c49m7g-a.virginia-postgres.render.com/orvyn_db_jc7n',
         conn_max_age=600,
         conn_health_checks=True,
-        # Only require SSL in production
-        ssl_require='RENDER' in os.environ
+        ssl_require=True
     )
 }
 
