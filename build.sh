@@ -20,4 +20,12 @@ python manage.py migrate --run-syncdb
 python manage.py collectstatic --no-input
 
 # Create superuser after database is fully configured
-python manage.py createadmin
+echo ">>> Intentando crear superusuario..."
+python manage.py createadmin || {
+    echo ">>> Error al crear superusuario. Mostrando logs..."
+    cat /var/log/django.log 2>/dev/null || echo "No se puede acceder al archivo de logs"
+    exit 1
+}
+
+echo ">>> Superusuario creado exitosamente"
+echo ">>> build.sh COMPLETADO <<<"
