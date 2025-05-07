@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash revision
 # exit on error
 set -o errexit
 
