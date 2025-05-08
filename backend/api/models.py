@@ -181,7 +181,8 @@ class HealthInsurances(models.Model):
 
 class JobFamilies(models.Model):
     tenant_id = models.ForeignKey(Tenant, on_delete=models.CASCADE)
-    job_family_name = models.CharField(primary_key=True, max_length=100)
+    job_family_code = models.CharField(primary_key=True, max_length=50)
+    job_family_name = models.CharField(max_length=100, blank=True, null=True)
     job_family_group = models.CharField(max_length=100, blank=True, null=True)
     job_family_status = models.CharField(max_length=50, blank=True, null=True)
 
