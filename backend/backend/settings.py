@@ -19,13 +19,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
+from decouple import config
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4vx8_4y3_5+q@f60-^$8#lx=2ok*g856#2-^u*)7!3@x$=ez!x'
+SECRET_KEY = config("DJANGO_SECRET_KEY", default="insecure-key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", cast=bool, default=True)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", default="localhost").split(",")
 
 
 # Application definition
@@ -75,30 +77,26 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# Database configuration with environment variable support for Render deployment
+# Database configuration for local PostgreSQL
 import os
-import dj_database_url
 
-# Configure database using DATABASE_URL or fall back to default configuration
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://orvyn_db_jc7n_user:stxnYOVLYziUEK5S0Pb8k1RllwR8dlJC@dpg-d0dsbjmuk2gs73c49m7g-a.virginia-postgres.render.com/orvyn_db_jc7n',
-        conn_max_age=600,
-        conn_health_checks=True,
-        ssl_require=True
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Orvyn',
+        'USER': 'postgres',
+        'PASSWORD': 'Cronos18847489',
+        'HOST': 'localhost',
+        'PORT': '5432',
+        'OPTIONS': {
+            'connect_timeout': 10,
+            'keepalives': 1,
+            'keepalives_idle': 30,
+            'keepalives_interval': 10,
+            'keepalives_count': 5,
+        }
+    }
 }
-
-# Add database options for better connection handling
-db_options = DATABASES['default'].get('OPTIONS', {})
-db_options.update({
-    'connect_timeout': 10,
-    'keepalives': 1,
-    'keepalives_idle': 30,
-    'keepalives_interval': 10,
-    'keepalives_count': 5,
-})
-DATABASES['default']['OPTIONS'] = db_options
 
 
 # Password validation
